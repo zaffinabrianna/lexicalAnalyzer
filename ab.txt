@@ -1,0 +1,6 @@
+if (a >= b)
+{         
+
+     return 0;
+
+} //check if a is greater than or equal to b
