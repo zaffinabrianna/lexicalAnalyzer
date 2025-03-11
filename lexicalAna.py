@@ -32,7 +32,7 @@ def tokenization(lines):
     tokenIdentifier = [
         ('KEYWORD', r'\b(int|float|double|char|if|else|while|for|return)\b'), #Find pattern of keywords
         ('SEPARATOR', r'[(){};,]'), #Find pattern of seperators
-        ('IDENTIFIER', r'\b[a-z A-Z_]\w*\b'), #Find pattern of identifiers
+        ('IDENTIFIER', r'\b[a-zA-Z_]\w*\b'), #Find pattern of identifiers
         ('OPERATOR', r'[+\-*/=><!]'), #Find pattern of operators
         ('INTEGER', r'\b\d+\b'), #Find pattern of integers
         ('WHITESPACE', r'\s+'), #Find pattern of whitespace
@@ -42,11 +42,17 @@ def tokenization(lines):
 # Token that takes the the token identifier and puts it into one string
     token_regex = '|'.join(f'(?P<{name}>{pattern})' for name, pattern in tokenIdentifier) 
 
+#Iterates each line of the file and applies tokenization to it
     for line in lines:
+        #Finds pattern and registers the tokens
         for match in re.finditer(token_regex, line):
+            # Takes the type of identifier found
             token_type = match.lastgroup
+            # Takes the actual token value
             token_value = match.group(token_type)
 
+            #If the token type isn't a white space and isn't an unknown character
+            # Append the token (in lower cases) to the "token" obj
             if token_type != 'WHITESPACE' and token_type != 'UNKNOWN':
                 tokens.append((token_value, token_type.lower()))
     return tokens
