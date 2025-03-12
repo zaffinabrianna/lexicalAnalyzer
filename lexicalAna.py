@@ -63,7 +63,8 @@ def main(): # Main to test lexical analysis
     cleanLines = removeUnnecessaryItems(lines)
     tokens = tokenization(cleanLines)
 
-    print("Erm:\n")
+    print("Set of lexemes and tokens (<lexemes> = <tokens>):")
+    print("-------------------------------------------------")
     for lexeme, token in tokens:
          print(f'"{lexeme}" = {token}')
 
